@@ -7,11 +7,34 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./stockData.component.scss']
 })
 export class StockData implements OnInit {
+  public date: string = '';
+  public dataLoaded: boolean = false;
+  public data: Data;
+  private readonly apiURL: string = 'https://jsonmock.hackerrank.com/api/stocks?date=';
 
   constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
+  }
+
+  submit() {
+    if (this.date !== '') {
+      console.log('submitting ', this.date);
+
+      this.http.get<ApiResponse>(this.apiURL + this.sanitizeDate(this.date)).subscribe((response: ApiResponse) => {
+        this.data = response.data[0];
+        this.dataLoaded = true;
+      });
+    }  
+  }
+
+  private sanitizeDate(date: string): string {
+    if (date.startsWith('0')) {
+      return date.slice(1);
+    }
+
+    return date;
   }
 }
 

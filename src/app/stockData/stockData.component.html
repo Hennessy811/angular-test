@@ -1,17 +1,45 @@
 <div class="layout-column align-items-center mt-50">
   <section class="layout-row align-items-center justify-content-center">
-    <input type="text" class="large" placeholder="5-January-2000"
-           id="app-input" data-test-id="app-input"/>
-    <button class="" id="submit-button" data-test-id="submit-button">Search</button>
+    <form (ngSubmit)="submit()">
+      <input
+        type="text"
+        class="large"
+        placeholder="5-January-2000"
+        id="app-input"
+        data-test-id="app-input"
+        name="date"
+        [(ngModel)]="date"
+      />
+      <button
+        type="submit"
+        [disabled]="date === ''"
+        class=""
+        id="submit-button"
+        data-test-id="submit-button"
+      >
+        Search
+      </button>
+    </form>
   </section>
 
-  <ul class="mt-50 styled slide-up-fade-in" id="stockData" data-test-id="stock-data" >
-    <li class="py-10"></li>
-    <li class="py-10"></li>
-    <li class="py-10"></li>
-    <li class="py-10"></li>
+  <ul
+    class="mt-50 styled slide-up-fade-in"
+    *ngIf="data"
+    id="stockData"
+    data-test-id="stock-data"
+  >
+    <li class="py-10">Open: {{ data.open }}</li>
+    <li class="py-10">Close: {{ data.close }}</li>
+    <li class="py-10">High: {{ data.high }}</li>
+    <li class="py-10">Low: {{ data.low }}</li>
   </ul>
 
-  <div class="mt-50 slide-up-fade-in"
-       id="no-result" data-test-id="no-result"></div>
+  <div
+    class="mt-50 slide-up-fade-in"
+    *ngIf="dataLoaded && !data"
+    id="no-result"
+    data-test-id="no-result"
+  >
+    No Results Found
+  </div>
 </div>

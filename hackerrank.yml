@@ -1,0 +1,18 @@
+version: 1.0
+configuration:
+  has_webserver: true
+  readonly_paths:
+    - src/app/stockData/stockData.component.spec.ts
+    - src/app/app.component.spec.ts
+  scoring:
+    command: "bash bin/env_setup && . $HOME/.nvm/nvm.sh && npm test"
+    files:
+      - unit.xml
+  ide_config:
+    default_open_files:
+      - src/app/stockData/stockData.component.ts
+      - src/app/stockData/stockData.component.html
+    project_menu:
+      run: bash bin/env_setup && . $HOME/.nvm/nvm.sh && npm start
+      install: bash bin/env_setup && . $HOME/.nvm/nvm.sh && npm install
+      test: bash bin/env_setup && . $HOME/.nvm/nvm.sh && npm test
